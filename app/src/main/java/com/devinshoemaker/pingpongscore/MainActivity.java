@@ -17,6 +17,13 @@ public class MainActivity extends AppCompatActivity {
 
     private int playerOneScore, playerTwoScore = 0;
 
+    private enum states {
+        END_GAME,
+        IN_PROGRESS
+    }
+
+    private String currentState = states.END_GAME.toString();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,23 +68,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void leftPlayerScore(View view) {
-        if (isWinningPoint(playerOneScore++, playerTwoScore)) {
-            // win method
+        if (isAllowed(states.IN_PROGRESS.toString())) {
+            if (isWinningPoint(playerOneScore++, playerTwoScore)) {
+                // win method
+            }
+            else
+                tvLeftPlayer.setText(playerOneScore);
         }
-        else
-            tvLeftPlayer.setText(playerOneScore);
     }
 
     public void rightPlayerScore(View view) {
-        if (isWinningPoint(playerOneScore++, playerTwoScore)) {
-            // win method
+        if (isAllowed(states.IN_PROGRESS.toString())) {
+            if (isWinningPoint(playerOneScore++, playerTwoScore)) {
+                // win method
+            } else
+                tvLeftPlayer.setText(playerOneScore);
         }
-        else
-            tvLeftPlayer.setText(playerOneScore);
     }
 
     private boolean isWinningPoint(int winnersScore, int losersScore) {
         if (winnersScore > losersScore && (winnersScore - losersScore) >= 2)
+            return true;
+        else
+            return false;
+    }
+
+    private boolean isAllowed(String requiredState) {
+        if (requiredState.equals(currentState))
             return true;
         else
             return false;
