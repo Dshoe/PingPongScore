@@ -72,24 +72,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void leftPlayerScore(View view) {
-        if (isAllowed(states.IN_PROGRESS.toString())) {
-            playerLeft.setScore(playerLeft.getScore() + 1);
-            if (isWinningPoint(playerLeft.getScore(), playerRight.getScore())) {
-                // win method
-            }
-            else
-                tvLeftPlayer.setText(playerLeft.getScore());
-        }
+        updateScore(playerLeft, playerRight);
     }
 
     public void rightPlayerScore(View view) {
+        updateScore(playerRight, playerLeft);
+    }
+
+    private void updateScore(Player scoringPlayer, Player opposingPlayer) {
         if (isAllowed(states.IN_PROGRESS.toString())) {
-            playerLeft.setScore(playerLeft.getScore() + 1);
-            if (isWinningPoint(playerLeft.getScore(), playerRight.getScore())) {
-                // win method
+            scoringPlayer.setScore(scoringPlayer.getScore() + 1);
+            tvLeftPlayer.setText(playerLeft.getScore());
+            tvRightPlayer.setText(playerRight.getScore());
+            if (isWinningPoint(scoringPlayer.getScore(), opposingPlayer.getScore())) {
+                currentState = states.END_GAME.toString();
             }
-            else
-                tvLeftPlayer.setText(playerLeft.getScore());
         }
     }
 
