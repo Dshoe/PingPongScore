@@ -63,12 +63,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void resetMatch() {
-        tvLeftPlayer.setText("0");
-        tvRightPlayer.setText("0");
         playerOne = new Player();
         playerTwo = new Player();
         playerLeft = playerOne;
         playerRight = playerTwo;
+        tvLeftPlayer.setText(playerRight.getScore());
+        tvRightPlayer.setText(playerLeft.getScore());
     }
 
     public void leftPlayerScore(View view) {
