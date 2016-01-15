@@ -37,7 +37,8 @@
         android:layout_below="@+id/etLeftPlayer"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="40dp"
+        android:onClick="leftPlayerScore" />
 
     <Button
         android:layout_width="400dp"
@@ -45,7 +46,8 @@
         android:id="@+id/btnRightPlayer"
         android:layout_alignTop="@+id/btnLeftPlayer"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="rightPlayerScore" />
 
     <TextView
         android:layout_width="wrap_content"

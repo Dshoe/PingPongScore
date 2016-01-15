@@ -12,6 +12,11 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TextView tvLeftPlayer = (TextView) findViewById(R.id.tvLeftPlayer);
+    private TextView tvRightPlayer = (TextView) findViewById(R.id.tvRightPlayer);
+
+    private int playerOneScore, playerTwoScore = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +56,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void resetMatch() {
-        TextView tvLeftPlayer = (TextView) findViewById(R.id.tvLeftPlayer);
-        TextView tvRightPlayer = (TextView) findViewById(R.id.tvRightPlayer);
-
         tvLeftPlayer.setText("0");
         tvRightPlayer.setText("0");
+    }
+
+    public void leftPlayerScore(View view) {
+        if (isWinningPoint(playerOneScore++, playerTwoScore)) {
+            // win method
+        }
+        else
+            tvLeftPlayer.setText(playerOneScore);
+    }
+
+    public void rightPlayerScore(View view) {
+        if (isWinningPoint(playerOneScore++, playerTwoScore)) {
+            // win method
+        }
+        else
+            tvLeftPlayer.setText(playerOneScore);
+    }
+
+    private boolean isWinningPoint(int winnersScore, int losersScore) {
+        if (winnersScore > losersScore && (winnersScore - losersScore) >= 2)
+            return true;
+        else
+            return false;
     }
 }
