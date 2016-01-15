@@ -7,7 +7,7 @@ package com.devinshoemaker.pingpongscore;
  */
 public class Player {
     private String name;
-    private int score;
+    private int score = 0;
 
     public String getName() {
         return name;

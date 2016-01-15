@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvLeftPlayer = (TextView) findViewById(R.id.tvLeftPlayer);
     private TextView tvRightPlayer = (TextView) findViewById(R.id.tvRightPlayer);
 
-    private int playerOneScore, playerTwoScore = 0;
+    private Player playerOne, playerTwo, playerLeft, playerRight;
 
     private enum states {
         END_GAME,
@@ -65,24 +65,31 @@ public class MainActivity extends AppCompatActivity {
     private void resetMatch() {
         tvLeftPlayer.setText("0");
         tvRightPlayer.setText("0");
+        playerOne = new Player();
+        playerTwo = new Player();
+        playerLeft = playerOne;
+        playerRight = playerTwo;
     }
 
     public void leftPlayerScore(View view) {
         if (isAllowed(states.IN_PROGRESS.toString())) {
-            if (isWinningPoint(playerOneScore++, playerTwoScore)) {
+            playerLeft.setScore(playerLeft.getScore() + 1);
+            if (isWinningPoint(playerLeft.getScore(), playerRight.getScore())) {
                 // win method
             }
             else
-                tvLeftPlayer.setText(playerOneScore);
+                tvLeftPlayer.setText(playerLeft.getScore());
         }
     }
 
     public void rightPlayerScore(View view) {
         if (isAllowed(states.IN_PROGRESS.toString())) {
-            if (isWinningPoint(playerOneScore++, playerTwoScore)) {
+            playerLeft.setScore(playerLeft.getScore() + 1);
+            if (isWinningPoint(playerLeft.getScore(), playerRight.getScore())) {
                 // win method
-            } else
-                tvLeftPlayer.setText(playerOneScore);
+            }
+            else
+                tvLeftPlayer.setText(playerLeft.getScore());
         }
     }
 
