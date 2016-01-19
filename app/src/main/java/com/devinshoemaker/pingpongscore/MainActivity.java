@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateScore(Player scoringPlayer, Player opposingPlayer) {
-        if (isAllowed(states.IN_PROGRESS)) {
+        if (isAllowed(states.IN_PROGRESS) | isAllowed(states.IN_PROGRESS_SWITCHED)) {
             scoringPlayer.setScore(scoringPlayer.getScore() + 1);
             tvLeftPlayer.setText(playerLeft.getScore());
             tvRightPlayer.setText(playerRight.getScore());
