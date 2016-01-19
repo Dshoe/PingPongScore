@@ -8,18 +8,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvLeftPlayer = (TextView) findViewById(R.id.tvLeftPlayer);
     private TextView tvRightPlayer = (TextView) findViewById(R.id.tvRightPlayer);
+    private EditText etLeftPlayer = (EditText) findViewById(R.id.etLeftPlayer);
+    private EditText etRightPlayer = (EditText) findViewById(R.id.etRightPlayer);
 
     private Player playerOne, playerTwo, playerLeft, playerRight;
 
     private enum states {
         END_GAME,
-        IN_PROGRESS
+        IN_PROGRESS,
+        IN_PROGRESS_SWTICHED
     }
 
     private String currentState = states.END_GAME.toString();
@@ -89,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if ((scoringPlayer.getWinCount() - opposingPlayer.getWinCount()) >= 2)
                     currentState = states.END_GAME.toString();
+                else
+                    switchSides();
             }
         }
     }
@@ -105,5 +111,27 @@ public class MainActivity extends AppCompatActivity {
             return true;
         else
             return false;
+    }
+
+    private void switchSides() {
+        if (isAllowed(states.IN_PROGRESS.toString())) {
+            playerLeft.setScore(0);
+            playerRight.setScore(0);
+            playerOne = playerLeft;
+            playerTwo = playerRight;
+            playerLeft = playerTwo;
+            playerRight = playerOne;
+            tvLeftPlayer.setText(playerLeft.getScore());
+            tvRightPlayer.setText(playerRight.getScore());
+        } else if (isAllowed(states.IN_PROGRESS.toString())) {
+            playerLeft.setScore(0);
+            playerRight.setScore(0);
+            playerOne = playerRight;
+            playerTwo = playerLeft;
+            playerLeft = playerOne;
+            playerRight = playerTwo;
+            tvLeftPlayer.setText(playerRight.getScore());
+            tvRightPlayer.setText(playerLeft.getScore());
+        }
     }
 }
