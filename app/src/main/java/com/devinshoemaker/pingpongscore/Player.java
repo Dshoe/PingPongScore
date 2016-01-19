@@ -8,6 +8,7 @@ package com.devinshoemaker.pingpongscore;
 public class Player {
     private String name;
     private int score = 0;
+    private int winCount = 0;
 
     public String getName() {
         return name;
@@ -23,5 +24,13 @@ public class Player {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public int getWinCount() {
+        return winCount;
+    }
+
+    public void setWinCount(int winCount) {
+        this.winCount = winCount;
     }
 }

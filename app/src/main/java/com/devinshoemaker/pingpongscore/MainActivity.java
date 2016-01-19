@@ -85,7 +85,10 @@ public class MainActivity extends AppCompatActivity {
             tvLeftPlayer.setText(playerLeft.getScore());
             tvRightPlayer.setText(playerRight.getScore());
             if (isWinningPoint(scoringPlayer.getScore(), opposingPlayer.getScore())) {
-                currentState = states.END_GAME.toString();
+                scoringPlayer.setWinCount(scoringPlayer.getScore() + 1);
+
+                if ((scoringPlayer.getWinCount() - opposingPlayer.getWinCount()) >= 2)
+                    currentState = states.END_GAME.toString();
             }
         }
     }
