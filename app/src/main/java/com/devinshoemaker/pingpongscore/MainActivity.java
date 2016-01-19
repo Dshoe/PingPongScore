@@ -41,6 +41,20 @@ public class MainActivity extends AppCompatActivity {
                 resetMatch();
             }
         });
+
+        etLeftPlayer.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                playerLeft.setName(etLeftPlayer.getText().toString());
+            }
+        });
+
+        etRightPlayer.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                playerRight.setName(etRightPlayer.getText().toString());
+            }
+        });
     }
 
     @Override
@@ -66,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void resetMatch() {
+        etLeftPlayer.setText(playerOne.getName());
+        etRightPlayer.setText(playerTwo.getName());
         playerOne = new Player();
         playerTwo = new Player();
         playerLeft = playerOne;
@@ -124,6 +140,8 @@ public class MainActivity extends AppCompatActivity {
             playerRight = playerOne;
             tvLeftPlayer.setText(playerLeft.getScore());
             tvRightPlayer.setText(playerRight.getScore());
+            etLeftPlayer.setText(playerLeft.getName());
+            etRightPlayer.setText(playerRight.getName());
         } else if (isAllowed(states.IN_PROGRESS_SWITCHED)) {
             playerLeft.setScore(0);
             playerRight.setScore(0);
@@ -133,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
             playerRight = playerTwo;
             tvLeftPlayer.setText(playerRight.getScore());
             tvRightPlayer.setText(playerLeft.getScore());
+            etLeftPlayer.setText(playerLeft.getName());
+            etRightPlayer.setText(playerRight.getName());
         }
     }
 }
