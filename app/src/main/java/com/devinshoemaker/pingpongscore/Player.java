@@ -9,6 +9,8 @@ public class Player {
     private String name;
     private int score = 0;
     private int winCount = 0;
+    private boolean server = false;
+    // todo add buttons and text views
 
     public String getName() {
         return name;
@@ -32,5 +34,13 @@ public class Player {
 
     public void setWinCount(int winCount) {
         this.winCount = winCount;
+    }
+
+    public boolean isServer() {
+        return server;
+    }
+
+    public void setServer(boolean server) {
+        this.server = server;
     }
 }

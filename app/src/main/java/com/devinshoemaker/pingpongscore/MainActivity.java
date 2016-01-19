@@ -1,5 +1,6 @@
 package com.devinshoemaker.pingpongscore;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -16,10 +18,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvRightPlayer = (TextView) findViewById(R.id.tvRightPlayer);
     private EditText etLeftPlayer = (EditText) findViewById(R.id.etLeftPlayer);
     private EditText etRightPlayer = (EditText) findViewById(R.id.etRightPlayer);
+    private Button btnLeftPlayer = (Button) findViewById(R.id.btnLeftPlayer);
+    private Button btnRightPlayer = (Button) findViewById(R.id.btnRightPlayer);
 
     private Player playerOne, playerTwo, playerLeft, playerRight;
 
     private enum states {
+        NEW_GAME,
         END_GAME,
         IN_PROGRESS,
         IN_PROGRESS_SWITCHED
@@ -88,14 +93,33 @@ public class MainActivity extends AppCompatActivity {
         playerRight = playerTwo;
         tvLeftPlayer.setText(playerRight.getScore());
         tvRightPlayer.setText(playerLeft.getScore());
+        currentState = states.NEW_GAME.toString();
+        btnLeftPlayer.setText("Select Server");
+        btnRightPlayer.setText("Select Server");
     }
 
     public void leftPlayerScore(View view) {
-        updateScore(playerLeft, playerRight);
+        if (isAllowed(states.IN_PROGRESS) | isAllowed(states.IN_PROGRESS_SWITCHED))
+            updateScore(playerLeft, playerRight);
+        else if (isAllowed(states.NEW_GAME)) {
+            setServer(playerLeft, playerRight);
+            btnLeftPlayer.setText("");
+            btnRightPlayer.setText("");
+            btnLeftPlayer.setBackgroundColor(Color.GREEN);
+            btnRightPlayer.setBackgroundColor(Color.RED);
+        }
     }
 
     public void rightPlayerScore(View view) {
-        updateScore(playerRight, playerLeft);
+        if (isAllowed(states.IN_PROGRESS) | isAllowed(states.IN_PROGRESS_SWITCHED))
+            updateScore(playerRight, playerLeft);
+        else if (isAllowed(states.NEW_GAME)) {
+            setServer(playerRight, playerLeft);
+            btnLeftPlayer.setText("");
+            btnRightPlayer.setText("");
+            btnLeftPlayer.setBackgroundColor(Color.RED);
+            btnRightPlayer.setBackgroundColor(Color.GREEN);
+        }
     }
 
     private void updateScore(Player scoringPlayer, Player opposingPlayer) {
@@ -110,11 +134,18 @@ public class MainActivity extends AppCompatActivity {
                 if (isWinningPoint(scoringPlayer.getWinCount(), opposingPlayer.getWinCount())) {
                     currentState = states.END_GAME.toString();
                 }
-                else
+                else {
                     switchSides();
+                    scoringPlayer.setServer(false);
+                    opposingPlayer.setServer(true);
+                }
             }
-
-
+            else if (!(scoringPlayer.getScore() % opposingPlayer.getScore() == 0)) {
+                if (scoringPlayer.isServer())
+                    setServer(opposingPlayer, scoringPlayer);
+                else
+                    setServer(scoringPlayer, opposingPlayer);
+            }
         }
     }
 
@@ -154,5 +185,10 @@ public class MainActivity extends AppCompatActivity {
             etLeftPlayer.setText(playerLeft.getName());
             etRightPlayer.setText(playerRight.getName());
         }
+    }
+
+    private void setServer(Player server, Player nonServer) {
+        server.setServer(true);
+        nonServer.setServer(false);
     }
 }
