@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateScore(Player scoringPlayer, Player opposingPlayer) {
-        if (isAllowed(states.IN_PROGRESS.toString())) {
+        if (isAllowed(states.IN_PROGRESS)) {
             scoringPlayer.setScore(scoringPlayer.getScore() + 1);
             tvLeftPlayer.setText(playerLeft.getScore());
             tvRightPlayer.setText(playerRight.getScore());
@@ -100,21 +100,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isWinningPoint(int winnersScore, int losersScore) {
-        if (winnersScore > losersScore && (winnersScore - losersScore) >= 2)
-            return true;
-        else
-            return false;
+        return (winnersScore > losersScore && (winnersScore - losersScore) >= 2);
     }
 
-    private boolean isAllowed(String requiredState) {
-        if (requiredState.equals(currentState))
-            return true;
-        else
-            return false;
+    private boolean isAllowed(states requiredState) {
+        return (requiredState.toString().equals(currentState));
     }
 
     private void switchSides() {
-        if (isAllowed(states.IN_PROGRESS.toString())) {
+        if (isAllowed(states.IN_PROGRESS)) {
             playerLeft.setScore(0);
             playerRight.setScore(0);
             playerOne = playerLeft;
@@ -123,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             playerRight = playerOne;
             tvLeftPlayer.setText(playerLeft.getScore());
             tvRightPlayer.setText(playerRight.getScore());
-        } else if (isAllowed(states.IN_PROGRESS.toString())) {
+        } else if (isAllowed(states.IN_PROGRESS_SWTICHED)) {
             playerLeft.setScore(0);
             playerRight.setScore(0);
             playerOne = playerRight;
