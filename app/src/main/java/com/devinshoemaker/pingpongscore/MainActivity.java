@@ -88,19 +88,27 @@ public class MainActivity extends AppCompatActivity {
             scoringPlayer.setScore(scoringPlayer.getScore() + 1);
             tvLeftPlayer.setText(playerLeft.getScore());
             tvRightPlayer.setText(playerRight.getScore());
-            if (isWinningPoint(scoringPlayer.getScore(), opposingPlayer.getScore())) {
+
+            if (isMatchPoint(scoringPlayer.getScore(), opposingPlayer.getScore())) {
                 scoringPlayer.setWinCount(scoringPlayer.getScore() + 1);
 
-                if ((scoringPlayer.getWinCount() - opposingPlayer.getWinCount()) >= 2)
+                if (isWinningPoint(scoringPlayer.getWinCount(), opposingPlayer.getWinCount())) {
                     currentState = states.END_GAME.toString();
+                }
                 else
                     switchSides();
             }
+
+
         }
     }
 
-    private boolean isWinningPoint(int winnersScore, int losersScore) {
+    private boolean isMatchPoint(int winnersScore, int losersScore) {
         return (winnersScore > losersScore && (winnersScore - losersScore) >= 2);
+    }
+
+    private boolean isWinningPoint(int winnersScore, int losersScore) {
+        return ((winnersScore - losersScore) >= 2);
     }
 
     private boolean isAllowed(states requiredState) {
