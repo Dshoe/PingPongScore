@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                     opposingPlayer.setServer(true);
                 }
             }
-            else if (!(scoringPlayer.getScore() % opposingPlayer.getScore() == 0)) {
+            else if (!(((scoringPlayer.getScore() + opposingPlayer.getScore()) % 2) == 0)) {
                 if (scoringPlayer.isServer())
                     setServer(opposingPlayer, scoringPlayer);
                 else
