@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    // todo move all access to UI elements to the player object
+
     private TextView tvLeftPlayerScore = (TextView) findViewById(R.id.tvLeftPlayer);
     private TextView tvRightPlayerScore = (TextView) findViewById(R.id.tvRightPlayer);
     private EditText etLeftPlayerName = (EditText) findViewById(R.id.etLeftPlayer);
