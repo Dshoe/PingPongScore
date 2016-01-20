@@ -118,8 +118,6 @@ public class MainActivity extends AppCompatActivity {
             setServer(playerLeft, playerRight);
             btnLeftPlayer.setText("");
             btnRightPlayer.setText("");
-            btnLeftPlayer.setBackgroundColor(Color.GREEN);
-            btnRightPlayer.setBackgroundColor(Color.RED);
         }
     }
 
@@ -130,8 +128,6 @@ public class MainActivity extends AppCompatActivity {
             setServer(playerRight, playerLeft);
             btnLeftPlayer.setText("");
             btnRightPlayer.setText("");
-            btnLeftPlayer.setBackgroundColor(Color.RED);
-            btnRightPlayer.setBackgroundColor(Color.GREEN);
         }
     }
 
