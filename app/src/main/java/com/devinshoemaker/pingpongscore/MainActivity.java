@@ -14,10 +14,10 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView tvLeftPlayer = (TextView) findViewById(R.id.tvLeftPlayer);
-    private TextView tvRightPlayer = (TextView) findViewById(R.id.tvRightPlayer);
-    private EditText etLeftPlayer = (EditText) findViewById(R.id.etLeftPlayer);
-    private EditText etRightPlayer = (EditText) findViewById(R.id.etRightPlayer);
+    private TextView tvLeftPlayerScore = (TextView) findViewById(R.id.tvLeftPlayer);
+    private TextView tvRightPlayerScore = (TextView) findViewById(R.id.tvRightPlayer);
+    private EditText etLeftPlayerName = (EditText) findViewById(R.id.etLeftPlayer);
+    private EditText etRightPlayerName = (EditText) findViewById(R.id.etRightPlayer);
     private Button btnLeftPlayer = (Button) findViewById(R.id.btnLeftPlayer);
     private Button btnRightPlayer = (Button) findViewById(R.id.btnRightPlayer);
 
@@ -43,21 +43,21 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resetMatch();
+                resetGame();
             }
         });
 
-        etLeftPlayer.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        etLeftPlayerName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                playerLeft.setName(etLeftPlayer.getText().toString());
+                playerLeft.setName(etLeftPlayerName.getText().toString());
             }
         });
 
-        etRightPlayer.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        etRightPlayerName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                playerRight.setName(etRightPlayer.getText().toString());
+                playerRight.setName(etRightPlayerName.getText().toString());
             }
         });
     }
@@ -84,18 +84,31 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void resetMatch() {
-        etLeftPlayer.setText(playerOne.getName());
-        etRightPlayer.setText(playerTwo.getName());
+    private void resetGame() {
+        etLeftPlayerName.setText(playerOne.getName());
+        etRightPlayerName.setText(playerTwo.getName());
         playerOne = new Player();
         playerTwo = new Player();
         playerLeft = playerOne;
         playerRight = playerTwo;
-        tvLeftPlayer.setText(playerRight.getScore());
-        tvRightPlayer.setText(playerLeft.getScore());
+
+        playerLeft.setButton(btnLeftPlayer);
+        playerLeft.setTvScore(tvLeftPlayerScore);
+        playerLeft.setEtName(etLeftPlayerName);
+        playerRight.setButton(btnRightPlayer);
+        playerRight.setTvScore(tvRightPlayerScore);
+        playerRight.setEtName(etRightPlayerName);
+
+        playerLeft.getButton().setText("Select Server");
+        playerRight.getButton().setText("Select Server");
+
+        playerLeft.getTvScore().setText("0");
+        playerRight.getTvScore().setText("0");
+
+        playerLeft.getEtName().setText("");
+        playerRight.getEtName().setText("");
+
         currentState = states.NEW_GAME.toString();
-        btnLeftPlayer.setText("Select Server");
-        btnRightPlayer.setText("Select Server");
     }
 
     public void leftPlayerScore(View view) {
@@ -125,8 +138,8 @@ public class MainActivity extends AppCompatActivity {
     private void updateScore(Player scoringPlayer, Player opposingPlayer) {
         if (isAllowed(states.IN_PROGRESS) | isAllowed(states.IN_PROGRESS_SWITCHED)) {
             scoringPlayer.setScore(scoringPlayer.getScore() + 1);
-            tvLeftPlayer.setText(playerLeft.getScore());
-            tvRightPlayer.setText(playerRight.getScore());
+            tvLeftPlayerScore.setText(playerLeft.getScore());
+            tvRightPlayerScore.setText(playerRight.getScore());
 
             if (isMatchPoint(scoringPlayer.getScore(), opposingPlayer.getScore())) {
                 scoringPlayer.setWinCount(scoringPlayer.getScore() + 1);
@@ -169,10 +182,10 @@ public class MainActivity extends AppCompatActivity {
             playerTwo = playerRight;
             playerLeft = playerTwo;
             playerRight = playerOne;
-            tvLeftPlayer.setText(playerLeft.getScore());
-            tvRightPlayer.setText(playerRight.getScore());
-            etLeftPlayer.setText(playerLeft.getName());
-            etRightPlayer.setText(playerRight.getName());
+            tvLeftPlayerScore.setText(playerLeft.getScore());
+            tvRightPlayerScore.setText(playerRight.getScore());
+            etLeftPlayerName.setText(playerLeft.getName());
+            etRightPlayerName.setText(playerRight.getName());
         } else if (isAllowed(states.IN_PROGRESS_SWITCHED)) {
             playerLeft.setScore(0);
             playerRight.setScore(0);
@@ -180,15 +193,17 @@ public class MainActivity extends AppCompatActivity {
             playerTwo = playerLeft;
             playerLeft = playerOne;
             playerRight = playerTwo;
-            tvLeftPlayer.setText(playerRight.getScore());
-            tvRightPlayer.setText(playerLeft.getScore());
-            etLeftPlayer.setText(playerLeft.getName());
-            etRightPlayer.setText(playerRight.getName());
+            tvLeftPlayerScore.setText(playerRight.getScore());
+            tvRightPlayerScore.setText(playerLeft.getScore());
+            etLeftPlayerName.setText(playerLeft.getName());
+            etRightPlayerName.setText(playerRight.getName());
         }
     }
 
     private void setServer(Player server, Player nonServer) {
         server.setServer(true);
+        server.getButton().setBackgroundColor(Color.GREEN);
         nonServer.setServer(false);
+        server.getButton().setBackgroundColor(Color.RED);
     }
 }

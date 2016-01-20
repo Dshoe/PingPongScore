@@ -1,5 +1,9 @@
 package com.devinshoemaker.pingpongscore;
 
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
 /**
  * Created by Devin Shoemaker on 1/15/16.
  *
@@ -10,7 +14,9 @@ public class Player {
     private int score = 0;
     private int winCount = 0;
     private boolean server = false;
-    // todo add buttons and text views
+    private Button button;
+    private TextView tvScore;
+    private EditText etName;
 
     public String getName() {
         return name;
@@ -42,5 +48,29 @@ public class Player {
 
     public void setServer(boolean server) {
         this.server = server;
+    }
+
+    public Button getButton() {
+        return button;
+    }
+
+    public void setButton(Button button) {
+        this.button = button;
+    }
+
+    public TextView getTvScore() {
+        return tvScore;
+    }
+
+    public void setTvScore(TextView tvScore) {
+        this.tvScore = tvScore;
+    }
+
+    public EditText getEtName() {
+        return etName;
+    }
+
+    public void setEtName(EditText etName) {
+        this.etName = etName;
     }
 }
