@@ -129,9 +129,7 @@ public class MainActivity extends AppCompatActivity {
         if (isAllowed(states.IN_PROGRESS) | isAllowed(states.IN_PROGRESS_SWITCHED))
             updateScore(playerLeft, playerRight);
         else if (isAllowed(states.NEW_GAME)) {
-            setServer(playerLeft, playerRight);
-            btnLeftPlayer.setText("");
-            btnRightPlayer.setText("");
+            setStartingServer(playerLeft, playerRight);
         }
     }
 
@@ -139,9 +137,7 @@ public class MainActivity extends AppCompatActivity {
         if (isAllowed(states.IN_PROGRESS) | isAllowed(states.IN_PROGRESS_SWITCHED))
             updateScore(playerRight, playerLeft);
         else if (isAllowed(states.NEW_GAME)) {
-            setServer(playerRight, playerLeft);
-            btnLeftPlayer.setText("");
-            btnRightPlayer.setText("");
+            setStartingServer(playerRight, playerLeft);
         }
     }
 
@@ -214,6 +210,13 @@ public class MainActivity extends AppCompatActivity {
         server.setServer(true);
         server.getButton().setBackgroundColor(Color.GREEN);
         nonServer.setServer(false);
-        server.getButton().setBackgroundColor(Color.RED);
+        nonServer.getButton().setBackgroundColor(Color.RED);
+    }
+
+    private void setStartingServer(Player server, Player nonServer) {
+        btnLeftPlayer.setText("");
+        btnRightPlayer.setText("");
+        setServer(server, nonServer);
+        currentState = states.IN_PROGRESS;
     }
 }
