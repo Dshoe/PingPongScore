@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isMatchPoint(int winnersScore, int losersScore) {
-        return (winnersScore > losersScore && (winnersScore - losersScore) >= 2);
+        return (winnersScore >= 11 && (winnersScore - losersScore) >= 2);
     }
 
     private boolean isWinningPoint(int winnersScore, int losersScore) {
