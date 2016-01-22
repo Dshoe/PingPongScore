@@ -144,8 +144,8 @@ public class MainActivity extends AppCompatActivity {
     private void updateScore(Player scoringPlayer, Player opposingPlayer) {
         if (isAllowed(states.IN_PROGRESS) | isAllowed(states.IN_PROGRESS_SWITCHED)) {
             scoringPlayer.setScore(scoringPlayer.getScore() + 1);
-            tvLeftPlayerScore.setText(playerLeft.getScore());
-            tvRightPlayerScore.setText(playerRight.getScore());
+            tvLeftPlayerScore.setText(String.valueOf(playerLeft.getScore()));
+            tvRightPlayerScore.setText(String.valueOf(playerRight.getScore()));
 
             if (isMatchPoint(scoringPlayer.getScore(), opposingPlayer.getScore())) {
                 scoringPlayer.setWinCount(scoringPlayer.getScore() + 1);
