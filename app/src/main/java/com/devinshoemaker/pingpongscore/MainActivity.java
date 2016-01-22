@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         IN_PROGRESS_SWITCHED
     }
 
-    private String currentState = states.END_GAME.toString();
+    private states currentState = states.END_GAME;
 
     @Override
     @SuppressWarnings({"NullableProblems"})
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         playerLeft.getEtName().setText("");
         playerRight.getEtName().setText("");
 
-        currentState = states.NEW_GAME.toString();
+        currentState = states.NEW_GAME;
     }
 
     public void leftPlayerScore(View view) {
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                 scoringPlayer.setWinCount(scoringPlayer.getScore() + 1);
 
                 if (isWinningPoint(scoringPlayer.getWinCount(), opposingPlayer.getWinCount())) {
-                    currentState = states.END_GAME.toString();
+                    currentState = states.END_GAME;
                 }
                 else {
                     switchSides();
@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isAllowed(states requiredState) {
-        return (requiredState.toString().equals(currentState));
+        return (requiredState.equals(currentState));
     }
 
     private void switchSides() {
