@@ -16,12 +16,12 @@ public class MainActivity extends AppCompatActivity {
 
     // todo move all access to UI elements to the player object
 
-    private TextView tvLeftPlayerScore = (TextView) findViewById(R.id.tvLeftPlayer);
-    private TextView tvRightPlayerScore = (TextView) findViewById(R.id.tvRightPlayer);
-    private EditText etLeftPlayerName = (EditText) findViewById(R.id.etLeftPlayer);
-    private EditText etRightPlayerName = (EditText) findViewById(R.id.etRightPlayer);
-    private Button btnLeftPlayer = (Button) findViewById(R.id.btnLeftPlayer);
-    private Button btnRightPlayer = (Button) findViewById(R.id.btnRightPlayer);
+    private TextView tvLeftPlayerScore;
+    private TextView tvRightPlayerScore;
+    private EditText etLeftPlayerName;
+    private EditText etRightPlayerName;
+    private Button btnLeftPlayer;
+    private Button btnRightPlayer;
 
     private Player playerOne, playerTwo, playerLeft, playerRight;
 
@@ -35,11 +35,19 @@ public class MainActivity extends AppCompatActivity {
     private String currentState = states.END_GAME.toString();
 
     @Override
+    @SuppressWarnings({"NullableProblems"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        tvLeftPlayerScore = (TextView) findViewById(R.id.tvLeftPlayer);
+        tvRightPlayerScore = (TextView) findViewById(R.id.tvRightPlayer);
+        etLeftPlayerName = (EditText) findViewById(R.id.etLeftPlayer);
+        etRightPlayerName = (EditText) findViewById(R.id.etRightPlayer);
+        btnLeftPlayer = (Button) findViewById(R.id.btnLeftPlayer);
+        btnRightPlayer = (Button) findViewById(R.id.btnRightPlayer);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -52,14 +60,16 @@ public class MainActivity extends AppCompatActivity {
         etLeftPlayerName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                playerLeft.setName(etLeftPlayerName.getText().toString());
+                if (etLeftPlayerName.getText() != null)
+                    playerLeft.setName(etLeftPlayerName.getText().toString());
             }
         });
 
         etRightPlayerName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                playerRight.setName(etRightPlayerName.getText().toString());
+                if (etRightPlayerName.getText() != null)
+                    playerRight.setName(etRightPlayerName.getText().toString());
             }
         });
     }
