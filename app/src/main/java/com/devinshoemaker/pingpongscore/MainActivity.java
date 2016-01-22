@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
             tvRightPlayerScore.setText(String.valueOf(playerRight.getScore()));
 
             if (isMatchPoint(scoringPlayer.getScore(), opposingPlayer.getScore())) {
-                scoringPlayer.setWinCount(scoringPlayer.getScore() + 1);
+                scoringPlayer.setWinCount(scoringPlayer.getWinCount() + 1);
 
                 if (isWinningPoint(scoringPlayer.getWinCount(), opposingPlayer.getWinCount())) {
                     currentState = states.END_GAME;
