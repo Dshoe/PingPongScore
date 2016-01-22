@@ -48,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
         etRightPlayerName = (EditText) findViewById(R.id.etRightPlayer);
         btnLeftPlayer = (Button) findViewById(R.id.btnLeftPlayer);
         btnRightPlayer = (Button) findViewById(R.id.btnRightPlayer);
+        playerLeft = new Player();
+        playerRight = new Player();
+        playerOne = new Player();
+        playerTwo = new Player();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -60,16 +64,14 @@ public class MainActivity extends AppCompatActivity {
         etLeftPlayerName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (etLeftPlayerName.getText() != null)
-                    playerLeft.setName(etLeftPlayerName.getText().toString());
+                playerLeft.setName(etLeftPlayerName.getText().toString());
             }
         });
 
         etRightPlayerName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (etRightPlayerName.getText() != null)
-                    playerRight.setName(etRightPlayerName.getText().toString());
+                playerRight.setName(etRightPlayerName.getText().toString());
             }
         });
     }
